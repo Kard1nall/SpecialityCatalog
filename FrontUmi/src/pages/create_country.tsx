@@ -2,6 +2,7 @@ import request from "@/utils/request";
 import { Button, Form, message } from "antd";
 import { useParams, history } from "@umijs/max";
 import FormCountryEdit from "@/components/FormCountryEdit";
+import LayoutAuth from "@/layouts/LayoutAuth";
 
 
 const DocsPage = (props: any) => {
@@ -19,7 +20,7 @@ const DocsPage = (props: any) => {
 
 
   return (
-    <>
+    <LayoutAuth>
 
       <Form onFinish={createHandler}>
 
@@ -28,7 +29,7 @@ const DocsPage = (props: any) => {
         <Button type="primary" htmlType="submit">Создать запись</Button>
       </Form>
 
-    </>
+    </LayoutAuth>
   );
 };
 

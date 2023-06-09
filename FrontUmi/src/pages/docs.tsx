@@ -4,6 +4,7 @@ import { Button, Form, Input, Popconfirm, Select, Space, Table, Tag, Typography,
 import { ColumnsType } from "antd/es/table";
 import React from "react";
 import { DeleteFilled, EditFilled, SearchOutlined } from "@ant-design/icons";
+import LayoutAuth from "@/layouts/LayoutAuth";
 
 const DocsPage = () => {
 
@@ -82,7 +83,7 @@ const DocsPage = () => {
 
 
   return (
-    <div>
+    <LayoutAuth>
       <Space direction="vertical" style={{ marginBottom: '10px' }}>
         <Link to="/create">
           <Button type="primary">Новая группа</Button>
@@ -107,7 +108,7 @@ const DocsPage = () => {
       </Form>
 
       <Table dataSource={dataSource} columns={columns} loading={loading} />
-    </div>
+    </LayoutAuth>
   );
 };
 

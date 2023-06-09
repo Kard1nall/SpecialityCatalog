@@ -4,6 +4,7 @@ import { Button, Form, Input, Space, Table, message, } from "antd";
 import { ColumnsType } from "antd/es/table";
 import React from "react";
 import { DeleteFilled, EditFilled, SearchOutlined } from "@ant-design/icons";
+import LayoutAuth from "@/layouts/LayoutAuth";
 
 const DocsPage = () => {
 
@@ -63,7 +64,7 @@ const DocsPage = () => {
 
 
   return (
-    <div>
+    <LayoutAuth>
       <Space direction="vertical" style={{ marginBottom: '10px' }}>
         <Link to="/create_country">
           <Button type="primary">Добавить страну</Button>
@@ -80,7 +81,7 @@ const DocsPage = () => {
       </Form>
 
       <Table dataSource={dataSource} columns={columns} loading={loading} />
-    </div>
+    </LayoutAuth>
   );
 };
 

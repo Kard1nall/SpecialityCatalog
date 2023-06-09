@@ -3,6 +3,7 @@ import { history } from "@umijs/max";
 import request from "@/utils/request";
 import FormStudentEdit from "@/components/FormStudentEdit";
 import React from "react";
+import LayoutAuth from "@/layouts/LayoutAuth";
 
 
 
@@ -22,7 +23,7 @@ const DocsPage = (props: any) => {
 
 
   return (
-    <>
+    <LayoutAuth>
 
       <Form onFinish={createHandler}>
 
@@ -31,7 +32,7 @@ const DocsPage = (props: any) => {
         <Button type="primary" htmlType="submit">Создать запись</Button>
       </Form>
 
-    </>
+    </LayoutAuth>
   );
 };
 

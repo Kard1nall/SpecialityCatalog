@@ -1,4 +1,5 @@
 
+import LayoutAuth from "@/layouts/LayoutAuth";
 import request from "@/utils/request";
 import { useModel } from "@umijs/max";
 import { Button, Form, Input, Popconfirm, Select, Space, Table, Typography, } from "antd";
@@ -16,7 +17,7 @@ const DocsPage = () => {
 
 
   return (
-    <div>
+    <LayoutAuth>
       <div>Вы ввели имя {name}</div>
       <Form onFinish={formNextHandler} layout="inline" style={{ marginBottom: '10px' }}>
         <Form.Item name="name" style={{ width: '230px' }}>
@@ -26,7 +27,7 @@ const DocsPage = () => {
 
       </Form>
 
-    </div>
+    </LayoutAuth>
   );
 };
 

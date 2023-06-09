@@ -1,4 +1,5 @@
 import ModalComponent from '@/components/ModalComponent';
+import LayoutAuth from '@/layouts/LayoutAuth';
 import { Line } from '@ant-design/charts';
 import { useModel } from '@umijs/max';
 import { Button, Modal } from 'antd';
@@ -18,16 +19,15 @@ export default function HomePage() {
 
 
   return (
-    <div>
+    <LayoutAuth>
       <h2>Welcome, {initialState?.name}! </h2>
       <p>
 
-        {/* <ModalComponent buttonText="Test Modal" callback={modalCallback} /> */}
-
+       
       </p>
       <div>
 
       </div>
-    </div>
+    </LayoutAuth>
   );
 }

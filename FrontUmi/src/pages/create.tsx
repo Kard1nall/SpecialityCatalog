@@ -1,5 +1,6 @@
 import FormGroupEdit from "@/components/FormGroupEdit";
 import ModalComponent from "@/components/ModalComponent";
+import LayoutAuth from "@/layouts/LayoutAuth";
 import request from "@/utils/request";
 import { Link } from "@umijs/max";
 import { useParams, history } from "@umijs/max";
@@ -21,7 +22,7 @@ const DocsPage = (props: any) => {
 
 
   return (
-    <>
+    <LayoutAuth>
 
       <Form onFinish={createHandler}>
 
@@ -30,7 +31,7 @@ const DocsPage = (props: any) => {
         <Button type="primary" htmlType="submit">Создать запись</Button>
       </Form>
 
-    </>
+    </LayoutAuth>
   );
 };
 

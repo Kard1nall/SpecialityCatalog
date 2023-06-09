@@ -16,6 +16,10 @@ export default defineConfig({
       path: '/auth',
       component: './auth',
     },
+    {
+      path: '/register',
+      component: './register',
+    },
 
     {
       path: '/docs',

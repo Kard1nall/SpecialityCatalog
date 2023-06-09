@@ -4,11 +4,10 @@ import { Button, Form, Input, Popconfirm, Select, Space, Table, Typography, mess
 import { ColumnsType } from "antd/es/table";
 import React from "react";
 import LayoutNoAuth from "@/layouts/LayoutNoAuth";
-import { useModel } from "@/.umi/plugin-model";
 
 const DocsPage = () => {
 
-  const { initialState, setInitialState, refresh } = useModel("@@initialState");
+  const [dataSource, setDataSource] = React.useState([]);
 
   const loginHandler = (data: any) => {
     request('https://localhost:7127/auth/login', { method: 'POST', data }).then((result: any) => {
@@ -24,11 +23,6 @@ const DocsPage = () => {
 
     })
   };
-
-  // const logoutHandler = (data: any) => {
-  //   localStorage.removeItem('token');
-  //   setInitialState({});
-  // };
 
   return (
     <LayoutNoAuth>
@@ -59,7 +53,7 @@ const DocsPage = () => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">Войти</Button>
+            <Button type="primary" htmlType="submit">Зарегистрироваться</Button>
           </Form.Item>
 
         </Form>
@@ -70,10 +64,6 @@ const DocsPage = () => {
 
 export default DocsPage;
 function refresh() {
-  throw new Error("Function not implemented.");
-}
-
-function setInitialState(arg0: {}) {
   throw new Error("Function not implemented.");
 }
 
