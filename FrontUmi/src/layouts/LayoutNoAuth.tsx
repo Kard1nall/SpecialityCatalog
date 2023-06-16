@@ -13,25 +13,7 @@ export default (props: any) => {
   const { initialState, setInitialState, refresh } = useModel("@@initialState");
   const access = useAccess();
 
-  // const loginHandler = (data: any) => {
-  //   request('https://localhost:7127/auth/login', { method: 'POST', data }).then((result: any) => {
-  //     if (result.status == 0) {
-  //       localStorage.setItem('token', result.token);
-  //       refresh();
-  //     }
-  //     else {
-  //       message.error("Ошибка авторизации");
 
-  //     }
-
-
-  //   })
-  // };
-
-  // const logoutHandler = (data: any) => {
-  //   localStorage.removeItem('token');
-  //   setInitialState({});
-  // };
 
 
   return (
@@ -52,6 +34,10 @@ export default (props: any) => {
                 {
                   label: <Link to="/">Home</Link>,
                   key: 'home',
+                },
+                {
+                  label: <Link to="/register">Register</Link>,
+                  key: 'register',
                 },
                
               ]}
@@ -77,36 +63,7 @@ export default (props: any) => {
           </Header>
 
         </Layout>
-        {/* <Form
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600, paddingTop: '10px' }}
-          initialValues={{ remember: true }}
-          onFinish={loginHandler}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Логин"
-            name="login"
-            rules={[{ required: true, message: 'Введите ваш логин!' }]}
-          >
-            <Input allowClear placeholder="Введите логин" />
-          </Form.Item>
-
-          <Form.Item
-            label="Пароль"
-            name="password"
-            rules={[{ required: true, message: 'Введите ваш пароль!' }]}
-          >
-            <Input.Password allowClear placeholder="Введите пароль" />
-          </Form.Item>
-
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">Войти</Button>
-          </Form.Item>
-
-        </Form> */}
+       
         <Content style={{ padding: '0 50px' }}>
           <div className="site-layout-content" style={{ paddingTop: '10px' }}>
 

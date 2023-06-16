@@ -10,13 +10,14 @@ const DocsPage = () => {
   const [dataSource, setDataSource] = React.useState([]);
 
   const loginHandler = (data: any) => {
-    request('https://localhost:7127/auth/login', { method: 'POST', data }).then((result: any) => {
-      if (result.status == 0) {
-        localStorage.setItem('token', result.token);
-        refresh();
+    request('https://localhost:7127/auth/Post/reg', { method: 'POST', data }).then((result: any) => {
+      if (result) {
+        message.success("Успешная регистрация")
+        
+        
       }
       else {
-        message.error("Ошибка авторизации");
+        message.error("Ошибка регистрации");
 
       }
 
@@ -38,7 +39,7 @@ const DocsPage = () => {
         >
           <Form.Item
             label="Логин"
-            name="login"
+            name="name"
             rules={[{ required: true, message: 'Введите ваш логин!' }]}
           >
             <Input allowClear placeholder="Введите логин" />

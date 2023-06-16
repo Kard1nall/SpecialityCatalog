@@ -8,6 +8,8 @@ using SpecialityCatalogWebApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace SpecialityCatalogWebApi.Controllers
 {
@@ -52,70 +54,43 @@ namespace SpecialityCatalogWebApi.Controllers
             return new JsonResult(new { status = 0, token });
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Register([FromBody] RegisterModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [HttpPost("reg")]
+        public async Task<IActionResult> PostAsync(User user)
+        {
+            if (user.Name == null)
+                return BadRequest(new Response { ErrorMsg = "Имя пользователя яляется обязательным" });
+            if (user.Password == null)
+                return BadRequest(new Response { ErrorMsg = "Пароль яляется обязательным" });
+            
 
-        //    // Создание нового пользователя
-        //    var user = new User { Name = model.Login, Password = model.Password };
-        //    var result = await _studentsDbContext.CreateAsync(user, model.Password);
+            var existUser = new User();
+            try
+            {
+                existUser = _studentsDbContext.Users.FirstOrDefault(u => u.Name == user.Name);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new Response { ErrorMsg = $"Ошибка проверки дубликата пользователя: {ex}" });
+            }
 
-        //    if (!result.Succeeded)
-        //    {
-        //        return BadRequest(result.Errors);
-        //    }
+            if (existUser != null)
+                return BadRequest(new Response { ErrorMsg = "Пользователь с такой почтой уже зарегистрирован" });
 
-        //    // Создание JWT Token для нового пользователя
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(JwtRegisteredClaimNames.Id, user.Id),
-        //        new Claim(JwtRegisteredClaimNames.Name, user.Name),
-        //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        //    };
+            user.Name = user.Name.ToLower();
 
-        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        //    var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-        //      _config["Jwt:Issuer"],
-        //      claims,
-        //      expires: DateTime.Now.AddMinutes(30),
-        //      signingCredentials: creds);
+            try
+            {
+                await _studentsDbContext.Users.AddAsync(user);
+                await _studentsDbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new Response { ErrorMsg = "Ошибка регистрации пользователя" });
+            }
 
-        //    // Возвращение токена клиенту
-        //    return Ok(new
-        //    {
-        //        token = new JwtSecurityTokenHandler().WriteToken(token),
-        //        userId = user.Id
-        //    });
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Register(RegisterModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        User user = await _studentsDbContext.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
-        //        if (user == null)
-        //        {
-        //            // добавляем пользователя в бд
-        //            _studentsDbContext.Users.Add(new User { Login = model.Login, Password = model.Password });
-        //            await _studentsDbContext.SaveChangesAsync();
-
-        //            await Authenticate(model.Login); // аутентификация
-
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //        else
-        //            ModelState.AddModelError("", "Некорректные логин и(или) пароль");
-        //    }
-        //    return View(model);
-        //}
+            return Ok(new Response { Success = true, SuccessMsg = "Успешная регистрация" });
+        }
 
     }
 }
